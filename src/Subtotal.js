@@ -3,9 +3,11 @@ import './Subtotal.css';
 import { NumericFormat } from 'react-number-format'; // Use named import
 import { useStateValue } from './StateProvider';
 import { getBasketTotal } from './reducer';
+import { useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
 
 function Subtotal() {
-    const [{ basket }, dispatch] = useStateValue();
+    const navigate = useNavigate(); // Replace useHistory with useNavigate
+    const [{ basket }] = useStateValue();
     return (
         <div className='subtotal'>
             <NumericFormat
@@ -25,7 +27,7 @@ function Subtotal() {
                 thousandSeparator={true}
                 prefix={'$'}
             />
-            <button>Proceed to Checkout</button>
+            <button onClick={e => navigate('/payment')}>Proceed to Checkout</button> {/* Use navigate instead of history.push */}
         </div>
     );
 }
