@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from './Header';
 import Home from './Home';
@@ -9,74 +9,78 @@ import { auth } from './firebase';
 import { useStateValue } from './StateProvider';
 import Payment from './Payment';
 import { loadStripe } from '@stripe/stripe-js';
-import {Elements} from '@stripe/react-stripe-js'
+import { Elements } from '@stripe/react-stripe-js';
+import Footer from './Footer';
+import ScrollToTop from './ScrollToTop';
 
-const promise=loadStripe('pk_test_51PomBKC8Av98MBvgb8Q2tsLIVhOtKtuGpvF06HbKNGi9q6bNBE6AJG7kaINfeBiKnhNtLMj3aeNjiLzyH4YfrUm100ZhrhXEF3');
+const promise = loadStripe('pk_test_51PomBKC8Av98MBvgb8Q2tsLIVhOtKtuGpvF06HbKNGi9q6bNBE6AJG7kaINfeBiKnhNtLMj3aeNjiLzyH4YfrUm100ZhrhXEF3');
 
 function App() {
   const [{}, dispatch] = useStateValue();
-  useEffect(() =>{
-    //will only run once when the app component loads.
+  const [searchTerm, setSearchTerm] = useState('');
 
-    auth.onAuthStateChanged(authUser =>{
+  useEffect(() => {
+    auth.onAuthStateChanged(authUser => {
       console.log('THE USER IS >>>', authUser);
-      if(authUser){
-        // user just logged in/ the user was logged in
-
+      if (authUser) {
         dispatch({
-          type:'SET_USER',
-          user:authUser
-        })
-      } else{
-        //the user is logged out
+          type: 'SET_USER',
+          user: authUser,
+        });
+      } else {
         dispatch({
-          type:'SET_USER',
-          user:null
-        })
+          type: 'SET_USER',
+          user: null,
+        });
       }
-    })  
-  },[])
+    });
+  }, [dispatch]);
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
 
   return (
     <Router>
+      {/* Include ScrollToTop here */}
+      <ScrollToTop />
       <div className="app">
-        
         <Routes>
-          <Route path="/" 
+          <Route
+            path="/"
             element={
               <>
-                <Header />
-                <Home />
-              </> 
-            } 
-          />
-          <Route 
-            path="/login" 
-            element={
-              <>
-                <Login />
+                <Header onSearch={handleSearch} />
+                <Home searchTerm={searchTerm} />
+                <Footer />
               </>
-            } 
+            }
           />
-          <Route 
-            path="/checkout" 
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+          <Route
+            path="/checkout"
             element={
               <>
-                <Header />
+                <Header onSearch={handleSearch} />
                 <Checkout />
+                <Footer />
               </>
-            } 
+            }
           />
-          <Route 
-            path="/payment" 
+          <Route
+            path="/payment"
             element={
               <>
-                <Header />
+                <Header onSearch={handleSearch} />
                 <Elements stripe={promise}>
                   <Payment />
+                  <Footer />
                 </Elements>
               </>
-            } 
+            }
           />
         </Routes>
       </div>
