@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import './Payment.css';
 import { useStateValue } from './StateProvider';
 import CheckoutProduct from './CheckoutProduct';
@@ -18,23 +18,27 @@ function Payment() {
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(true);
 
-    const handleSubmit = async(event) =>{
-        // do all fancy stripe stuff
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setProcessing(true);
-    }
 
-    const handleChange = event =>{
+        // Stripe payment logic here
+        // Ensure to catch any errors
+        // setSucceeded(true); // Uncomment after successful payment
+        // setProcessing(false); // Uncomment after processing
+    };
+
+    const handleChange = (event) => {
         setDisabled(event.empty);
-        setError(event.error? event.error.message:"");
-    }
+        setError(event.error ? event.error.message : "");
+    };
 
     return (
         <div className='payment'>
             <div className='payment__container'>
                 <h1>
                     Checkout (
-                        <Link to='/checkout'>{basket?.length} items</Link>
+                    <Link to='/checkout'>{basket?.length} items</Link>
                     )
                 </h1>
 
@@ -56,6 +60,7 @@ function Payment() {
                     <div className='payment__items'>
                         {basket.map(item => (
                             <CheckoutProduct
+                                key={item.id} // Added key prop
                                 id={item.id}
                                 title={item.title}
                                 image={item.image}
@@ -72,14 +77,12 @@ function Payment() {
                     </div>
                     <div className='payment__details'>
                         <form onSubmit={handleSubmit}>
-                            <CardElement onChange={handleChange}/>
+                            <CardElement onChange={handleChange} />
 
                             <div className='payment__priceContainer'>
                                 <NumericFormat
                                     renderText={(value) => (
-                                        <>
-                                            <h4>Order Total: {value}</h4>
-                                        </>
+                                        <h4>Order Total: {value}</h4>
                                     )}
                                     decimalScale={2}
                                     value={getBasketTotal(basket)}

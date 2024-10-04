@@ -16,7 +16,7 @@ import ScrollToTop from './ScrollToTop';
 const promise = loadStripe('pk_test_51PomBKC8Av98MBvgb8Q2tsLIVhOtKtuGpvF06HbKNGi9q6bNBE6AJG7kaINfeBiKnhNtLMj3aeNjiLzyH4YfrUm100ZhrhXEF3');
 
 function App() {
-  const [{}, dispatch] = useStateValue();
+  const [_, dispatch] = useStateValue();
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {

@@ -3,40 +3,46 @@ import './Footer.css';
 import { Link } from 'react-router-dom';
 
 function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="footer">
       <div className="footer__backToTop">
-        <a href="#">Back to top</a>
+        <button onClick={scrollToTop} style={{ background: 'none', border: 'none', color: 'blue', cursor: 'pointer' }}>
+          Back to top
+        </button>
       </div>
       <div className="footer__links">
         <div className="footer__section">
           <h3>Get to Know Us</h3>
-          <a href="#">About Us</a>
-          <a href="#">Careers</a>
-          <a href="#">Press Releases</a>
-          <a href="#">Amazon Science</a>
+          <Link to="#">About Us</Link>
+          <Link to="#">Careers</Link>
+          <Link to="#">Press Releases</Link>
+          <Link to="#">Amazon Science</Link>
         </div>
         <div className="footer__section">
           <h3>Connect with Us</h3>
-          <a href="#">Facebook</a>
-          <a href="#">Twitter</a>
-          <a href="#">Instagram</a>
+          <Link to="#">Facebook</Link>
+          <Link to="#">Twitter</Link>
+          <Link to="#">Instagram</Link>
         </div>
         <div className="footer__section">
           <h3>Make Money with Us</h3>
-          <a href="#">Sell on Amazon</a>
-          <a href="#">Sell under Amazon Accelerator</a>
-          <a href="#">Protect and Build Your Brand</a>
-          <a href="#">Amazon Global Selling</a>
-          <a href="#">Supply to Amazon</a>
+          <Link to="#">Sell on Amazon</Link>
+          <Link to="#">Sell under Amazon Accelerator</Link>
+          <Link to="#">Protect and Build Your Brand</Link>
+          <Link to="#">Amazon Global Selling</Link>
+          <Link to="#">Supply to Amazon</Link>
         </div>
         <div className="footer__section">
           <h3>Let Us Help You</h3>
-          <a href="#">Your Account</a>
-          <a href="#">Returns Centre</a>
-          <a href="#">100% Purchase Protection</a>
-          <a href="#">Amazon App Download</a>
-          <a href="#">Help</a>
+          <Link to="#">Your Account</Link>
+          <Link to="#">Returns Centre</Link>
+          <Link to="#">100% Purchase Protection</Link>
+          <Link to="#">Amazon App Download</Link>
+          <Link to="#">Help</Link>
         </div>
       </div>
       <div className="footer__bottom">
@@ -49,17 +55,17 @@ function Footer() {
             </Link>
         </div>
         <div className="footer__countries">
-          <a href="#">India</a>
-          <a href="#">Australia</a>
-          <a href="#">Canada</a>
-          <a href="#">Japan</a>
-          <a href="#">United Kingdom</a>
-          <a href="#">United States</a>
+          <Link to="#">India</Link>
+          <Link to="#">Australia</Link>
+          <Link to="#">Canada</Link>
+          <Link to="#">Japan</Link>
+          <Link to="#">United Kingdom</Link>
+          <Link to="#">United States</Link>
         </div>
         <div className="footer__legal">
-          <a href="#">Conditions of Use & Sale</a>
-          <a href="#">Privacy Notice</a>
-          <a href="#">Interest-Based Ads</a>
+          <Link to="#">Conditions of Use & Sale</Link>
+          <Link to="#">Privacy Notice</Link>
+          <Link to="#">Interest-Based Ads</Link>
           <span>© 1996-2024, Amazon.com, Inc. or its affiliates</span>
         </div>
       </div>
